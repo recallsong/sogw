@@ -1,0 +1,69 @@
+{
+    "hosts": [
+        {
+            "kind": 0,
+            "value": "localhost:8080"
+        }
+    ],
+    "auths": [
+        {
+            "id": "httpbasic",
+            "kind": 0,
+            "config": {
+                "recall": "123456"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "method": "GET",
+            "path": "/v1/test/hello",
+            "service": "test",
+            "apiId": "testHelloApi"
+        },
+        {
+            "method": "GET",
+            "path": "/v1/demo/hello/*",
+            "service": "demo",
+            "apiId": "demoHelloApi"
+        }
+    ],
+    "services": [
+        {
+            "service": {
+                "id": "test",
+                "name": "test"
+            },
+            "cfg": {},
+            "apis": [
+                {
+                    "id": "testHelloApi",
+                    "path": "/hello"
+                }
+            ],
+            "svrs": [
+                {
+                    "addr": "localhost:7001"
+                }
+            ]
+        },
+        {
+            "service": {
+                "id": "demo",
+                "name": "demo"
+            },
+            "cfg": {},
+            "apis": [
+                {
+                    "id": "demoHelloApi",
+                    "path": "/hello/*"
+                }
+            ],
+            "svrs": [
+                {
+                    "addr": "localhost:7002"
+                }
+            ]
+        }
+    ]
+}

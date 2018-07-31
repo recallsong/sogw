@@ -1,0 +1,14 @@
+debug: "true"
+store.url: "etcd://192.168.0.105:2379/test"
+publish:
+    swagger.file: "swagger-api-demo.yml"
+    mapper:
+        pathPattern: "/.*?/.*?(/.*)"
+        services:
+            test:
+                servers:
+                    - { addr: "localhost:7001" }
+                config: { loadBlance: "IPHash" }
+            demo:
+                servers:
+                    - { addr: "localhost:7002" }

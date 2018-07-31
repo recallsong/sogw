@@ -1,0 +1,29 @@
+swagger: "2.0"
+info:
+  description: "This is description."
+  version: "1.0.0"
+  title: "Demo api for test"
+host: "localhost:8080"
+basePath: "/v1"
+tags:
+- name: "test"
+  description: "Everything about test"
+  externalDocs:
+    description: "Find out more"
+    url: "http://localhost/doc/test"
+- name: "demo"
+  description: "Everything about demo"
+  externalDocs:
+    description: "Find out more"
+    url: "http://localhost/doc/demo"
+schemes:
+- "http"
+paths:
+  /test/hello:
+    get:
+      tags: [ "test" ]
+      description: "test api"
+  /demo/hello/demopath:
+    get:
+      tags: [ "demo" ]
+      description: "demo api"

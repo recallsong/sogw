@@ -1,0 +1,21 @@
+# rmt_cfg: "etcd://192.168.33.10:2379/test/config"
+addr: ":8080"
+api_addr: ":7900"
+debug: true
+# store:
+#    url: "etcd://192.168.0.105:2379/test"
+#    watch: true
+store:
+   url: "file://./conf/meta.yml"
+   watch: true
+
+logs:
+    level: "INFO"
+    formatter.name: "text"
+    out:
+        name: "rotatelogs"
+        options:
+            path: "logs/app.%Y%m%d%H%M.log"
+            link-name: "logs/app.log"
+            rotation-time": "86400s"
+            max-age": "7days"

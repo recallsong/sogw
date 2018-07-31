@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+package meta;
+
+enum ValueSource {
+    Fixed               = 0;
+
+    ReqHeader           = 1;
+    ReqCookie           = 2;
+    ReqPathParam        = 3;
+    ReqQueryParam       = 4;
+    ReqFormData         = 5;
+    RespHeader          = 6;
+    RespCookie          = 7;
+    Request             = 8;
+
+    ReqJSONBody         = 10;
+    ReqXMLBody          = 11;
+    RespJSONBody        = 12;
+    RespXMLBody         = 13;
+    Response            = 14;
+
+    System              = 15;
+}
+
+message ValueItem {
+    ValueSource     source      = 1;
+    string            name      = 2;
+}
+
+enum MatcherKind {
+    EQ      = 0;
+    NE      = 1;
+    LT      = 2;
+    LE      = 3;
+    GT      = 4;
+    GE      = 5;
+    Regex   = 6;
+}
+
+message Matcher {
+    string              key     = 1;
+	MatcherKind         kind    = 2;
+	string              value   = 3;
+}
+
+message ApiCondition {
+    Matcher         matcher     = 1;
+    string          apiId       = 2;
+}
+
+enum Status {
+    Open            = 0;
+    Close           = 1;
+}
+
+message Route {
+                string                      id          = 1;
+                Status                      status      = 2; 
+                string                      path        = 3;
+                string                      method      = 4;
+                string                      service     = 5;
+                string                      apiId       = 6;
+                map<string, ValueItem>      context     = 7;
+    repeated    ApiCondition                apiConds    = 8;
+                string                      files       = 9;
+}
+
+message Validator {
+    Matcher         matcher     = 1;
+    string          errorMsg    = 2;
+    int32           status      = 3;
+}
+
+message HeaderItem {
+    string          name    = 1;
+    string          key     = 2;
+}
+message ApiHeaders {
+    repeated        HeaderItem      toBackend    = 1;
+    repeated        HeaderItem      toClient     = 2;
+}
+
+message CookieItem {
+    string          name    = 1;
+    string          key     = 2;
+    int64           expire  = 3;   
+}
+message ApiCookies {
+    repeated        CookieItem      toBackend    = 1;
+    repeated        CookieItem      toClient     = 2;
+}
+
+message Api {
+                string                      id                  = 1;
+                Status                      status              = 2;
+                map<string, ValueItem>      context             = 3;
+                string                      authId              = 4;
+                ApiHeaders                  headers             = 5;
+                ApiCookies                  cookies             = 6;
+    repeated    Validator                   validators          = 7;
+                string                      path                = 8;
+                string                      method              = 9;
+                string                      version             = 10;
+                string                      lambda              = 11;
+                string                      serverId            = 12;
+}
+
+message Service {
+    string                      id              = 1;
+    string                      name            = 2;
+}
+
+enum LoadBalance {
+    RoundRobin      = 0;
+    IPHash          = 2;
+}
+
+message ServiceConfig {
+    string                      id              = 1;
+    Status                      status          = 2;
+    LoadBalance                 loadBlance      = 3;                    
+    map<string, ValueItem>      context         = 4;
+    string                      authId          = 5;
+}
+
+message HealthCheck {
+    string      path        = 1;
+    string      body        = 2;
+    int64       interval    = 3;
+    int64       timeout     = 4;
+}
+
+message Server {
+    string          id              = 1;
+    Status          status          = 2;
+    string          name            = 3;
+    string          host            = 4;
+    string          addr            = 5;
+    HealthCheck     healthCheck     = 6;
+    int64           maxQPS          = 7;
+}
+
+message Gateway {
+                    string      id      = 1;
+    repeated        string      addrs   = 2;
+}
+
+enum HostKind {
+    Allow       = 0;
+    Deny        = 1;
+}
+
+message Host {
+    string          id              = 1;  
+    HostKind        kind            = 2;
+    string          value           = 3;
+    string          service         = 4;
+    string          apiId           = 5;
+    string          svrId           = 6;
+}
+
+enum AuthKind {
+    HttpBasic       = 0;
+    OAuth2          = 1;
+}
+
+message Auth {
+    string                      id              = 1;  
+    AuthKind                    kind            = 2;
+    map<string, string>         config          = 3;          
+}

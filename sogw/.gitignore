@@ -11,4 +11,5 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-etcd-*
+sogw
+bin/linux-amd64-sogw

@@ -1,0 +1,25 @@
+{
+    "hosts": [
+        { "kind":0, "value":"localhost:9090" }
+    ],
+    "auths": [
+        { "Id":"httpbasic", "kind":0, "config":{"recall":"123456"} }
+    ],
+    "routes":[
+        { "method":"GET", "path":"/hello/*", "service":"demo", "apiId":"getHelloId" },
+        { "method":"GET", "path":"/hello/", "service":"demo", "apiId":"getHello" }
+    ],
+    "services": [
+        {
+            "service":{ "id":"demo", "name":"demo" },
+            "cfg":{},
+            "apis":[
+                { "id":"getHelloId", "path":"/hello/*$?" },
+                { "id":"getHello", "path":"/hello" }
+            ],
+            "svrs":[
+                { "addr":"localhost:9080" }
+            ]
+        }
+    ]
+}
