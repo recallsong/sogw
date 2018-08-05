@@ -23,7 +23,7 @@ Sogw是一个Golang实现的 Api Gateway 服务程序，轻量级，高性能。
 
 # Topology
 
-![Topology](https://github.com/recallsong/sogw/raw/master/docs/img/topology.png)
+![Topology](https://github.com/recallsong/sogw/raw/master/doc/img/topology.png)
 
 # Download
 
@@ -37,7 +37,7 @@ Edit store url in sogw/conf/sogw.yml
         url: "file://./conf/meta.yml"
         watch: true
 
-[Store File Example](https://xxx)
+[Store File Example](https://github.com/recallsong/sogw/blob/master/sogw/conf/meta.example.json)
 
 ## Run With Etcd Store
 
@@ -75,7 +75,7 @@ Edit store url in sogw/conf/sogw.yml
 
 # Request Test 
 
-![Request Test](https://github.com/recallsong/sogw/raw/master/docs/img/example.png)
+![Request Test](https://github.com/recallsong/sogw/raw/master/doc/img/example.png)
 
 # TODO List
 * 以后台任务方式实现Health Check
